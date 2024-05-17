@@ -24,8 +24,8 @@ export default function CreateForm() {
     })
 
     if (res.status === 201) {
-      router.refresh()
-      router.push('/tickets')
+      router.refresh();
+      router.push('/tickets');
     }
     
   }

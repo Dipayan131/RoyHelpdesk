@@ -1,35 +1,34 @@
-import { notFound } from "next/navigation"
+import { notFound } from "next/navigation";
+import DeleteTicketButton from "./DeleteTicketButton"; // Adjust the import path accordingly
 
-export const dynamicParams = true // default val = true
+export const dynamicParams = true; // default val = true
 
 export async function generateStaticParams() {
-  const res = await fetch('https://royhelpdesk-data.onrender.com/tickets')
+  const res = await fetch('https://royhelpdesk-data.onrender.com/tickets');
 
-  const tickets = await res.json()
- 
+  const tickets = await res.json();
+
   return tickets.map((ticket) => ({
-    id: ticket.id
-  }))
+    id: ticket.id,
+  }));
 }
 
 async function getTicket(id) {
   const res = await fetch(`https://royhelpdesk-data.onrender.com/tickets/${id}`, {
     next: {
-      revalidate: 60
-    }
-  })
+      revalidate: 60,
+    },
+  });
 
   if (!res.ok) {
-    notFound()
+    notFound();
   }
 
-  return res.json()
+  return res.json();
 }
 
-
 export default async function TicketDetails({ params }) {
-  // const id = params.id
-  const ticket = await getTicket(params.id)
+  const ticket = await getTicket(params.id);
 
   return (
     <main>
@@ -43,7 +42,8 @@ export default async function TicketDetails({ params }) {
         <div className={`pill ${ticket.priority}`}>
           {ticket.priority} priority
         </div>
+        <DeleteTicketButton ticketId={ticket.id} />
       </div>
     </main>
-  )
+  );
 }
