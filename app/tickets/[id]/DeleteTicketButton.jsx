@@ -10,7 +10,7 @@ function DeleteTicketButton({ ticketId }) {
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      const res = await fetch(`https://royhelpdesk-data.onrender.com/tickets/${ticketId}`, {
+      const res = await fetch(`https://ap-south-1.aws.data.mongodb-api.com/app/application-0-gblsohc/endpoint/deleteQuery?id=${ticketId}`, {
         method: 'DELETE'
       });
 

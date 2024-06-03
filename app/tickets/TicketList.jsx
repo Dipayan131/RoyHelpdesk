@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 async function getTickets() {
-  const res = await fetch("https://royhelpdesk-data.onrender.com/tickets", {
+  const res = await fetch("https://ap-south-1.aws.data.mongodb-api.com/app/application-0-gblsohc/endpoint/queries", {
     next: {
       revalidate: 0, //use 0 to opt out the using of cache
     },

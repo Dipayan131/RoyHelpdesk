@@ -4,7 +4,7 @@ import DeleteTicketButton from "./DeleteTicketButton"; // Adjust the import path
 export const dynamicParams = true; // default val = true
 
 export async function generateStaticParams() {
-  const res = await fetch('https://royhelpdesk-data.onrender.com/tickets');
+  const res = await fetch('https://ap-south-1.aws.data.mongodb-api.com/app/application-0-gblsohc/endpoint/queries');
 
   const tickets = await res.json();
 
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 }
 
 async function getTicket(id) {
-  const res = await fetch(`https://royhelpdesk-data.onrender.com/tickets/${id}`, {
+  const res = await fetch(`https://ap-south-1.aws.data.mongodb-api.com/app/application-0-gblsohc/endpoint/queries?id=${id}`, {
     next: {
       revalidate: 60,
     },
