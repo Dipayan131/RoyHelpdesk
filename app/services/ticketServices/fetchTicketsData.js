@@ -1,6 +1,6 @@
 export async function fetchTicketsData(id) {
     try {
-        const url = id ? `http://localhost:3000/api/ticket?id=${id}` : 'http://localhost:3000/api/ticket';
+        const url = id ? `/api/ticket?id=${id}` : '/api/ticket';
 
         const response = await fetch(url, {
             next: {

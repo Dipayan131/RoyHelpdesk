@@ -1,18 +1,20 @@
+'use client'
+
 import { notFound } from "next/navigation";
 import DeleteTicketButton from "./DeleteTicketButton"; // Adjust the import path accordingly
 import { fetchTicketsData } from "@/app/services/ticketServices/fetchTicketsData";
 
 export const dynamicParams = true; // default val = true
 
-export async function generateStaticParams() {
-  const res = await fetchTicketsData();
+// export async function generateStaticParams() {
+//   const res = await fetchTicketsData();
 
-  const tickets = res.data;
+//   const tickets = res.data;
 
-  return tickets.map((ticket) => ({
-    id: ticket._id,
-  }));
-}
+//   return tickets.map((ticket) => ({
+//     id: ticket._id,
+//   }));
+// }
 
 async function getTicket(id) {
   const res = await fetchTicketsData(id);

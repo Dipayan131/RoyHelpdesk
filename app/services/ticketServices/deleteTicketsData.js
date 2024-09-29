@@ -1,6 +1,6 @@
 export async function deleteTicketsData(id) {
     try {
-        const response = await fetch('http://localhost:3000/api/ticket', {
+        const response = await fetch('/api/ticket', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
