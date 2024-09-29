@@ -1,27 +1,79 @@
-import Link from "next/link"
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [userType, setUserType] = useState("User");
+
   return (
-    <main>
-      <h2>Dashboard</h2>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero repellendus tempore, exercitationem odit, quasi doloremque possimus recusandae alias sequi totam soluta natus iure eius, obcaecati sint dolores blanditiis aspernatur quo officia iusto ut. Et, aliquid sed voluptates iste cum totam, facere explicabo, fugit suscipit ratione aspernatur consequuntur ex mollitia quaerat?</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+        <h2
+          className="text-2xl font-bold mb-6 text-center"
+          style={{ color: "#7856ff" }}
+        >
+          Login
+        </h2>
+        <form className="space-y-4">
+          {/* Email Address */}
+          <div>
+            <label className="block text-gray-700">Email Address</label>
+            <input
+              type="email"
+              className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
 
-      <div className="flex justify-center my-8">
-        <Link href="/tickets">
-          <button className="btn-primary">View Tickets</button>
-        </Link>
-      </div>
+          {/* Password */}
+          <div>
+            <label className="block text-gray-700">Password</label>
+            <input
+              type="password"
+              className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
 
-      <h2>Company Updates</h2>
+          {/* User Type */}
+          <div>
+            <label className="block text-gray-700">User Type</label>
+            <select
+              className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+            >
+              <option value="Admin">Admin</option>
+              <option value="User">User</option>
+            </select>
+          </div>
 
-      <div className="card">
-        <h3>New member of the web dev team...</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, at quam. Dolores omnis possimus quam soluta rerum illo laborum ullam pariatur molestiae, modi beatae corrupti.</p>
+          {/* Submit Button */}
+          <div>
+            <button
+              type="submit"
+              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200"
+              style={{ backgroundColor: "#7856ff" }}
+            >
+              Login
+            </button>
+          </div>
+          {/* Create Account Link */}
+          <p className="text-center mt-4 text-gray-600">
+            You don't have an account?{" "}
+            <Link
+              href="/register"
+              className="text-indigo-600 hover:underline"
+              style={{ color: "#7856ff" }}
+            >
+              Create now!
+            </Link>
+          </p>
+        </form>
       </div>
-      <div className="card">
-        <h3>New website live!</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, at quam. Dolores omnis possimus quam soluta rerum illo laborum ullam pariatur molestiae, modi beatae corrupti, assumenda distinctio adipisci, cupiditate minima eum vitae? Similique dicta est facilis debitis, autem temporibus quo repellat illum unde id iste veritatis eveniet, aspernatur enim quas.</p>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
