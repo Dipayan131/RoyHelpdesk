@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { deleteTicketsData } from "@/app/services/ticketServices/deleteTicketsData";
 
 function DeleteTicketButton({ ticketId }) {
   const router = useRouter();
@@ -10,11 +11,9 @@ function DeleteTicketButton({ ticketId }) {
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      const res = await fetch(`https://ap-south-1.aws.data.mongodb-api.com/app/application-0-gblsohc/endpoint/deleteQuery?id=${ticketId}`, {
-        method: 'DELETE'
-      });
+      const res = await deleteTicketsData(ticketId)
 
-      if (res.ok) {
+      if (res.success) {
         // Redirect to the tickets list page and force a reload
         router.refresh();
         router.push('/tickets')

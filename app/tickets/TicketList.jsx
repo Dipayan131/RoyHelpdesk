@@ -1,25 +1,28 @@
+"use client";
+
 import Link from "next/link";
+import { fetchTicketsData } from "../services/ticketServices/fetchTicketsData";
+import { useEffect, useState } from "react";
 
-async function getTickets() {
-  const res = await fetch("https://ap-south-1.aws.data.mongodb-api.com/app/application-0-gblsohc/endpoint/queries", {
-    next: {
-      revalidate: 0, //use 0 to opt out the using of cache
-    },
-  });
+export default function TicketList() {
+  const [tickets, setTickets] = useState([]);
 
-  return res.json();
-}
+  useEffect(() => {
+    const getTickets = async () => {
+      const res = await fetchTicketsData();
+      setTickets(res.data); // Set the fetched tickets to state
+    };
 
-export default async function TicketList() {
-  const tickets = await getTickets();
+    getTickets();
+  }, []); // Empty dependency array ensures this runs once on mount
 
   return (
     <>
       {tickets.map((ticket) => (
-        <div key={ticket.id} className="card my-5">
-          <Link href={`/tickets/${ticket.id}`}>
+        <div key={ticket._id} className="card my-5">
+          <Link href={`/tickets/${ticket._id}`}>
             <h3>{ticket.title}</h3>
-            <p>{ticket.body.slice(0, 200)}...</p>
+            <p>{ticket.body?.slice(0, 200)}...</p>
             <div className={`pill ${ticket.priority}`}>
               {ticket.priority} priority
             </div>

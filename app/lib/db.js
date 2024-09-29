@@ -1,0 +1,1 @@
+export const apiKey = `mongodb+srv://${process.env.NEXT_PUBLIC_USERNAME}:${process.env.NEXT_PUBLIC_PASSWORD}@cluster0.lipdsuk.mongodb.net/helpdesk?retryWrites=true&w=majority&appName=Cluster0`

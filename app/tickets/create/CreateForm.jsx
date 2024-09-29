@@ -1,8 +1,8 @@
 "use client"
 
+import { createTicketsData } from "@/app/services/ticketServices/createTicketsData";
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { v4 as uuidv4 } from 'uuid'; // Import uuidv4 from uuid package
 
 export default function CreateForm() {
   const router = useRouter()
@@ -16,19 +16,12 @@ export default function CreateForm() {
     e.preventDefault()
     setIsLoading(true)
 
-    const id = uuidv4(); // Generate a unique id
-    const newTicket = { id, title, body, priority, user_email: 'mario@netninja.dev' }
+    const newTicket = {name: "Roy", message: "NA", issue_status: "NA",  title, body, priority, user_email: 'mario@netninja.dev' }
 
     try {
-      const res = await fetch('https://ap-south-1.aws.data.mongodb-api.com/app/application-0-gblsohc/endpoint/query', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newTicket)
-      })
+      const res = await createTicketsData(newTicket);
 
-      console.log(`Response status: ${res.status}`); // Log the response status
-
-      if (res.status === 200) {
+      if (res.success) {
         router.refresh();
         router.push('/tickets');
       } else {
