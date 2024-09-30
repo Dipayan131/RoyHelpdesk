@@ -1,4 +1,4 @@
-"use client"; // Make this a Client Component
+'use client'
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -20,7 +20,7 @@ export default function AdminPage() {
     if (value !== "Admin") {
       router.push("/");
     }
-  }, [value,router]);
+  }, [value, router]);
 
   useEffect(() => {
     const getTickets = async () => {
@@ -31,10 +31,8 @@ export default function AdminPage() {
     getTickets();
   }, []);
 
-  // Group tickets by user email
   const groupedTickets = tickets.reduce((acc, ticket) => {
     if (ticket.issue_status !== "solved") {
-      // Only include tickets that are not solved
       const userKey = `${ticket.name} (${ticket.email})`;
       acc[userKey] = acc[userKey] || [];
       acc[userKey].push(ticket);
@@ -42,7 +40,6 @@ export default function AdminPage() {
     return acc;
   }, {});
 
-  // Toggle collapse for a specific user
   const toggleCollapseUser = (userKey) => {
     setCollapsedUsers((prev) => ({
       ...prev,
@@ -50,7 +47,6 @@ export default function AdminPage() {
     }));
   };
 
-  // Toggle collapse for a specific tab
   const toggleCollapseTab = (tabKey) => {
     setCollapsedTabs((prev) => ({
       ...prev,
@@ -58,7 +54,6 @@ export default function AdminPage() {
     }));
   };
 
-  // Determine priority color
   const getPriorityColor = (priority) => {
     switch (priority.toLowerCase()) {
       case "high":
@@ -66,13 +61,12 @@ export default function AdminPage() {
       case "medium":
         return "bg-yellow-100 text-yellow-800 border-yellow-400";
       case "low":
-        return "bg-gray-100 text-gray-800 border-gray-400";
+        return "bg-gray-200 text-gray-800 border-gray-400";
       default:
         return "bg-gray-100 text-gray-800 border-gray-400";
     }
   };
 
-  // Handle Solved
   const handleSolved = async (id) => {
     try {
       const response = await fetch(`/api/ticket`, {
@@ -95,11 +89,8 @@ export default function AdminPage() {
     }
   };
 
-  // Handle Not Solved
   const handleNotSolved = async (id) => {
-    const message = prompt(
-      "Please provide a reason why the issue is not solved:"
-    );
+    const message = prompt("Please provide a reason why the issue is not solved:");
     if (message) {
       try {
         const response = await fetch(`/api/ticket`, {
@@ -141,7 +132,11 @@ export default function AdminPage() {
                 <span>{userKey}</span>
                 <span>{collapsedUsers[userKey] ? "-" : "+"}</span>
               </button>
-              {collapsedUsers[userKey] && (
+              <div
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                  collapsedUsers[userKey] ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
                 <div className="mt-2 space-y-2">
                   {userTickets.map((ticket, index) => {
                     const tabKey = `${userKey}-${index}`;
@@ -167,7 +162,11 @@ export default function AdminPage() {
                             {ticket.priority}
                           </span>
                         </div>
-                        {collapsedTabs[tabKey] && (
+                        <div
+                          className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                            collapsedTabs[tabKey] ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+                          }`}
+                        >
                           <div className="mt-3 p-2 bg-gray-50 rounded-md">
                             <p>{ticket.body}</p>
                             <div className="mt-3 flex justify-between items-center">
@@ -194,12 +193,12 @@ export default function AdminPage() {
                               </span>
                             </div>
                           </div>
-                        )}
+                        </div>
                       </div>
                     );
                   })}
                 </div>
-              )}
+              </div>
             </div>
           ))
         ) : (

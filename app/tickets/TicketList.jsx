@@ -3,18 +3,22 @@
 import Link from "next/link";
 import { fetchTicketsData } from "../services/ticketServices/fetchTicketsData";
 import { useEffect, useState } from "react";
+import { useMyContext } from "../context/AppContext";
 
 export default function TicketList() {
   const [tickets, setTickets] = useState([]);
+  const { userEmail } = useMyContext();
 
   useEffect(() => {
     const getTickets = async () => {
       const res = await fetchTicketsData();
-      setTickets(res.data); // Set the fetched tickets to state
+      // Filter tickets to show only those with email matching userEmail
+      const filteredTickets = res.data.filter(ticket => ticket.email === userEmail);
+      setTickets(filteredTickets);
     };
 
     getTickets();
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, [userEmail]); // Include userEmail as a dependency
 
   return (
     <>
@@ -22,10 +26,10 @@ export default function TicketList() {
         // Determine the status style and text based on issue_status
         let statusStyle = "";
         let statusText = "";
-        
+
         switch (ticket.issue_status?.toLowerCase()) {
           case "solved":
-            statusStyle = "bg-green-100 text-green-600 w-16 justify-center  "; // Green background and text
+            statusStyle = "bg-green-100 text-green-600 w-16 justify-center"; // Green background and text
             statusText = "Solved";
             break;
           case "not solved":
