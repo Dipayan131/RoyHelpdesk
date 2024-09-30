@@ -15,7 +15,7 @@ export default async function CreateTicket() {
     if (value !== "User") {
         router.push('/');
     }   
-}, [value]);
+}, [value, router]);
 
   return (
     <>

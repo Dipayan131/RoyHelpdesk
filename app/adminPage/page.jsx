@@ -20,7 +20,7 @@ export default function AdminPage() {
     if (value !== "Admin") {
       router.push("/");
     }
-  }, [value]);
+  }, [value,router]);
 
   useEffect(() => {
     const getTickets = async () => {

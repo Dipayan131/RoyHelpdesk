@@ -17,7 +17,7 @@ export default function Tickets() {
     if (value !== "User") {
         router.push('/');
     }   
-}, [value]);
+}, [value, router]);
 
   return (
     <>
