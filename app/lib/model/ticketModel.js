@@ -1,9 +1,8 @@
 import mongoose from "mongoose"
 
 const ticketsModel = new mongoose.Schema({
-    id: String,
     name: String,
-    user_email: String,
+    email: String,
     message: String,
     title: String,
     issue_status: String,

@@ -1,5 +1,6 @@
 "use client"
 
+import { useAppContext, useMyContext } from "@/app/context/AppContext";
 import { createTicketsData } from "@/app/services/ticketServices/createTicketsData";
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -11,12 +12,13 @@ export default function CreateForm() {
   const [body, setBody] = useState('')
   const [priority, setPriority] = useState('low')
   const [isLoading, setIsLoading] = useState(false)
+  const {userEmail, name} = useMyContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
 
-    const newTicket = {name: "Roy", message: "NA", issue_status: "NA",  title, body, priority, user_email: 'mario@netninja.dev' }
+    const newTicket = {name: name, email: userEmail, message: "NA", issue_status: "NA",  title, body, priority  }
 
     try {
       const res = await createTicketsData(newTicket);

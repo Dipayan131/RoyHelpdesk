@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { createRegisterData } from "../services/registerServices/createRegisterData";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
     const [userType, setUserType] = useState("User");
@@ -11,6 +12,7 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +33,7 @@ export default function Register() {
             setEmail("");
             setPassword("");
             setUserType("User");
+            router.push('/')
         } catch (err) {
             setError("Registration failed. Please try again."); // Handle registration error
         } finally {
@@ -40,11 +43,11 @@ export default function Register() {
 
     return (
         <div className="h-screen flex items-center justify-center bg-gray-100 overflow-hidden">
-            <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-sm">
+            <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center" style={{ color: "#7856ff" }}>
                     Register
                 </h2>
-                <form className="space-y-4" onSubmit={handleSubmit}>
+                <form className="space-y-4 w-full" onSubmit={handleSubmit}>
                     {/* Name */}
                     <div>
                         <label htmlFor="name" className="block text-gray-700">Name</label>
