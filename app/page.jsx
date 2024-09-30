@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const {setValue, setName, setUserEmail} = useMyContext();
+  const { setValue, setName, setUserEmail } = useMyContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,30 +19,30 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
+      const response = await fetch("/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
 
       const result = await response.json();
-      console.log("asbndaojn",result);
+      console.log("asbndaojn", result);
       if (result.success) {
         const userType = result.data.userType;
 
-        console.log("look", userType)
+        console.log("look", userType);
 
-        setUserEmail(email)
-        setName(result.data.name)
+        setUserEmail(email);
+        setName(result.data.name);
         // Redirect based on userType
         if (userType === "Admin") {
-          setValue(userType)
-          router.push('/adminPage');
+          setValue(userType);
+          router.push("/adminPage");
         } else {
-          setValue(userType)
-          router.push('/tickets');
+          setValue(userType);
+          router.push("/tickets");
         }
       } else {
         setError(result.message || "Login failed. Please try again.");
@@ -57,7 +57,10 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center" style={{ color: "#7856ff" }}>
+        <h2
+          className="text-2xl font-bold mb-6 text-center"
+          style={{ color: "#7856ff" }}
+        >
           Login
         </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -94,19 +97,25 @@ export default function LoginPage() {
           <div>
             <button
               type="submit"
-              className={`w-full text-white py-2 px-4 rounded-md transition duration-200 ${loading ? 'bg-gray-400' : 'hover:bg-indigo-700'}`}
+              className={`w-full text-white py-2 px-4 rounded-md transition duration-200 ${
+                loading ? "bg-gray-400" : "hover:bg-indigo-700"
+              }`}
               style={{ backgroundColor: "#7856ff" }}
               disabled={loading}
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? "Logging in..." : "Login"}
             </button>
           </div>
           <p className="text-center mt-4 text-gray-600">
-                        You don't have any account?{" "}
-                        <Link href="/register" className="text-indigo-600 hover:underline" style={{ color: "#7856ff" }}>
-                            Create Now!
-                        </Link>
-                    </p>
+            You don&#39;t have any account?{" "}
+            <Link
+              href="/register"
+              className="text-indigo-600 hover:underline"
+              style={{ color: "#7856ff" }}
+            >
+              Create Now!
+            </Link>
+          </p>
         </form>
       </div>
     </div>

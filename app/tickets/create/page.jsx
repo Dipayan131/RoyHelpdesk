@@ -6,7 +6,7 @@ import { useAppContext, useMyContext } from '@/app/context/AppContext';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/app/components/Navbar';
 
-export default async function CreateTicket() {
+export default function CreateTicket() {
   const {value} = useMyContext()
   const router = useRouter();
 
