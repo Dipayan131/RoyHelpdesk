@@ -32,7 +32,7 @@ export default function AdminPage() {
   }, []);
 
   const groupedTickets = tickets.reduce((acc, ticket) => {
-    if (ticket.issue_status !== "solved") {
+    if (ticket.issue_status !== "solved" && ticket.issue_status !== "not solved") {
       const userKey = `${ticket.name} (${ticket.email})`;
       acc[userKey] = acc[userKey] || [];
       acc[userKey].push(ticket);
