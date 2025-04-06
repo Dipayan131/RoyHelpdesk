@@ -6,6 +6,7 @@
 body {
     background: #ebf0fa;
     @apply text-gray-500 m-8;
+    overflow: hidden
   }
   h1, h2 {
     @apply font-bold text-primary text-lg;
